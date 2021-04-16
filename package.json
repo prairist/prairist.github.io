@@ -1,0 +1,23 @@
+{
+  "name": "prairist-pages",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "editFm": "node utils/editFrontmatter.js"
+  },
+  "license": "CC-BY-NC-SA-4.0",
+  "devDependencies": {
+    "@vuepress/plugin-last-updated": "^1.8.2",
+    "@vuepress/plugin-medium-zoom": "^1.8.2",
+    "dayjs": "^1.9.7",
+    "inquirer": "^7.1.0",
+    "json2yaml": "^1.1.0",
+    "vuepress": "1.8.0",
+    "vuepress-plugin-img-lazy": "^1.0.4",
+    "vuepress-plugin-one-click-copy": "^1.0.2",
+    "vuepress-plugin-thirdparty-search": "^1.0.2",
+    "vuepress-theme-vdoing": "^1.8.1",
+    "yamljs": "^0.3.0"
+  }
+}
