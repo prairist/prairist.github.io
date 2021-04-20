@@ -1,0 +1,32 @@
+name: Deploy to Gitee Pages
+
+on:
+  workflow_run:
+    workflows: ["Deploy to GitHub Pages"]
+    branches: [master]
+    types: 
+      - completed
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    needs: build-deploy
+
+    steps:
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@v1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        with:
+          source-repo: "git@github.com:prairist/prairist.github.io.git"
+          destination-repo: "git@gitee.com:prairist/prairist.git"
+      - name: Configure Gitee Pages
+        uses: mizuka-wu/gitee-pages-action@v1.0.0
+        with:
+          repository: prairist/prairist
+          cookie: ${{ secrets.GITEE_COOKIE }}
+          branch: gh-pages
+          https: true
