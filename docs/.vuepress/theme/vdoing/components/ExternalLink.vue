@@ -2,18 +2,24 @@
   <p v-if="$page.frontmatter.external" class="external-links">
     <a
       v-if="$page.frontmatter.external.wechat"
-      :href="'//mp.weixin.qq.com/s/' + $page.frontmatter.wechat"
+      :href="'//mp.weixin.qq.com/s/' + $page.frontmatter.external.wechat"
       class="iconfont icon-wechat"
+      target="_blank"
+      rel="noopener noreferrer"
     ></a
     ><a
       v-if="$page.frontmatter.external.amap"
-      :href="'//www.amap.com/place/' + $page.frontmatter.amap"
+      :href="'//www.amap.com/place/' + $page.frontmatter.external.amap"
       class="iconfont icon-amap"
+      target="_blank"
+      rel="noopener noreferrer"
     ></a
     ><a
       v-if="$page.frontmatter.external.dianping"
-      :href="'//www.dianping.com/shop/' + $page.frontmatter.dianping"
+      :href="'//www.dianping.com/shop/' + $page.frontmatter.external.dianping"
       class="iconfont icon-dianping"
+      target="_blank"
+      rel="noopener noreferrer"
     ></a>
   </p>
 </template>

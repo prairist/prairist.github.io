@@ -1,10 +1,10 @@
-name: Deploy to Gitee Pages
+name: Gitee Pages
 
 on:
   workflow_run:
-    workflows: ["Deploy to GitHub Pages"]
+    workflows: ['GitHub Pages']
     branches: [master]
-    types: 
+    types:
       - completed
 
 env:
@@ -20,8 +20,8 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
-          source-repo: "git@github.com:prairist/prairist.github.io.git"
-          destination-repo: "git@gitee.com:prairist/prairist.git"
+          source-repo: 'git@github.com:prairist/prairist.github.io.git'
+          destination-repo: 'git@gitee.com:prairist/prairist.git'
       - name: Configure Gitee Pages
         uses: mizuka-wu/gitee-pages-action@v1.0.0
         with:

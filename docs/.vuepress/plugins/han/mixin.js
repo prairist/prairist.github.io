@@ -6,6 +6,13 @@ export default {
         var r = document.body.querySelector('.theme-container');
         if (r.childElementCount > 0) {
           Han(r).render();
+          document.body
+            .querySelectorAll('a > h-hws:last-child')
+            .forEach((e) => {
+              if (e.nextSibling.wholeText === undefined) {
+                e.parentNode.removeChild(e);
+              }
+            });
         }
       } catch {
         o.observe(document.body, { childList: true, subtree: true });

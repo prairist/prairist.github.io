@@ -3,12 +3,18 @@ module.exports = [
   [
     'container',
     {
-      type: 'img',
-      before: () => '<div class="img-container">',
-      after: () => '</div>',
+      type: 'abstract',
+      defaultTitle: '',
     },
   ],
-  'img-lazy',
+  [
+    'container',
+    {
+      type: 'img',
+      defaultTitle: '',
+    },
+  ],
+  ['img-lazy', {}],
   [
     'thirdparty-search',
     {
@@ -16,7 +22,8 @@ module.exports = [
         {
           title: '在维基百科搜索条目',
           frontUrl: 'https://zh.wikipedia.org/w/index.php?search=',
-          behindUrl: '&title=Special%3A%E6%90%9C%E7%B4%A2&go=%E5%89%8D%E5%BE%80&ns0=1',
+          behindUrl:
+            '&title=Special%3A%E6%90%9C%E7%B4%A2&go=%E5%89%8D%E5%BE%80&ns0=1',
         },
         {
           title: '在高德地图搜索地点',
@@ -32,7 +39,10 @@ module.exports = [
   [
     'one-click-copy',
     {
-      copySelector: ['div[class*="language-"] pre', 'div[class*="aside-code"] aside'],
+      copySelector: [
+        'div[class*="language-"] pre',
+        'div[class*="aside-code"] aside',
+      ],
       copyMessage: '复制成功',
       duration: 1000,
       showInMobile: false,
