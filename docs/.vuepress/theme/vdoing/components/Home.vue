@@ -4,7 +4,7 @@
     <div
       class="banner"
       :class="{ 'hide-banner': !showBanner }"
-      :style="bannerBgStyle"
+      :style="'position: relative;' + bannerBgStyle"
     >
       <div
         class="banner-content"
@@ -113,6 +113,19 @@
         </div>
       </div>
       <!-- 移动端features块 e -->
+      <div v-if="$page.frontmatter.copyright" class="copyright">
+        <a
+          :href="$page.frontmatter.copyright.title.link"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ $page.frontmatter.copyright.title.text }}</a
+        >&emsp14;&#xa9;&emsp14;<a
+          :href="$page.frontmatter.copyright.author.link"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ $page.frontmatter.copyright.author.name }}</a
+        >&ensp;{{ $page.frontmatter.copyright.license }}
+      </div>
     </div>
     <!-- banner块 e -->
 
@@ -147,7 +160,7 @@
         <CategoriesBar
           v-if="
             $themeConfig.category !== false &&
-            $categoriesAndTags.categories.length
+              $categoriesAndTags.categories.length
           "
           :categoriesData="$categoriesAndTags.categories"
           :length="10"
@@ -168,23 +181,23 @@
 </template>
 
 <script>
-import NavLink from "@theme/components/NavLink";
-import BScroll from "@better-scroll/core"
-import Slide from "@better-scroll/slide"
-import MainLayout from '@theme/components/MainLayout'
-import PostList from '@theme/components/PostList'
-import UpdateArticle from '@theme/components/UpdateArticle'
-import Pagination from '@theme/components/Pagination'
-import BloggerBar from '@theme/components/BloggerBar'
-import CategoriesBar from '@theme/components/CategoriesBar'
-import TagsBar from '@theme/components/TagsBar'
+import NavLink from '@theme/components/NavLink';
+import BScroll from '@better-scroll/core';
+import Slide from '@better-scroll/slide';
+import MainLayout from '@theme/components/MainLayout';
+import PostList from '@theme/components/PostList';
+import UpdateArticle from '@theme/components/UpdateArticle';
+import Pagination from '@theme/components/Pagination';
+import BloggerBar from '@theme/components/BloggerBar';
+import CategoriesBar from '@theme/components/CategoriesBar';
+import TagsBar from '@theme/components/TagsBar';
 
-const MOBILE_DESKTOP_BREAKPOINT = 720 // refer to config.styl
+const MOBILE_DESKTOP_BREAKPOINT = 720; // refer to config.styl
 
-BScroll.use(Slide)
+BScroll.use(Slide);
 
 export default {
-  data () {
+  data() {
     return {
       isMQMobile: false,
 
@@ -195,147 +208,168 @@ export default {
 
       total: 0, // 总长
       perPage: 10, // 每页长
-      currentPage: 1// 当前页
-    }
+      currentPage: 1, // 当前页
+    };
   },
   computed: {
-    homeSidebarB () {
-      const { htmlModules } = this.$themeConfig
-      return htmlModules ? htmlModules.homeSidebarB : ''
+    homeSidebarB() {
+      const { htmlModules } = this.$themeConfig;
+      return htmlModules ? htmlModules.homeSidebarB : '';
     },
-    showBanner () { // 当分页不在第一页时隐藏banner栏
-      return this.$route.query.p
-        && this.$route.query.p != 1
-        && (!this.homeData.postList || this.homeData.postList === 'detailed')
-        ? false : true
+    showBanner() {
+      // 当分页不在第一页时隐藏banner栏
+      return this.$route.query.p &&
+        this.$route.query.p != 1 &&
+        (!this.homeData.postList || this.homeData.postList === 'detailed')
+        ? false
+        : true;
     },
-    bannerBgStyle () {
-      let bannerBg = this.homeData.bannerBg
-      if (!bannerBg || bannerBg === 'auto') { // 默认
-        if (this.$themeConfig.bodyBgImg) { // 当有bodyBgImg时，不显示背景
-          return ''
-        } else { // 网格纹背景
-          return 'background: rgb(40,40,45) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABOSURBVFhH7c6xCQAgDAVRR9A6E4hLu4uLiWJ7tSnuQcIvr2TRYsw3/zOGGEOMIcYQY4gxxBhiDDGGGEOMIcYQY4gxxBhiDLkx52W4Gn1tuslCtHJvL54AAAAASUVORK5CYII=)'
-        }
-      } else if (bannerBg === 'none') { // 无背景
+    bannerBgStyle() {
+      let bannerBg = this.homeData.bannerBg;
+      if (!bannerBg || bannerBg === 'auto') {
+        // 默认
         if (this.$themeConfig.bodyBgImg) {
-          return ''
+          // 当有bodyBgImg时，不显示背景
+          return '';
         } else {
-          return 'background: var(--mainBg);color: var(--textColor)'
+          // 网格纹背景
+          return 'background: rgb(40,40,45) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABOSURBVFhH7c6xCQAgDAVRR9A6E4hLu4uLiWJ7tSnuQcIvr2TRYsw3/zOGGEOMIcYQY4gxxBhiDDGGGEOMIcYQY4gxxBhiDLkx52W4Gn1tuslCtHJvL54AAAAASUVORK5CYII=)';
         }
-      } else if (bannerBg.indexOf('background') > -1) { // 自定义背景样式
-        return bannerBg
-      } else if (bannerBg.indexOf('.') > -1) { // 大图
-        return `background: url(${this.$withBase(bannerBg)}) center center / cover no-repeat`
+      } else if (bannerBg === 'none') {
+        // 无背景
+        if (this.$themeConfig.bodyBgImg) {
+          return '';
+        } else {
+          return 'background: var(--mainBg);color: var(--textColor)';
+        }
+      } else if (bannerBg.indexOf('background') > -1) {
+        // 自定义背景样式
+        return bannerBg;
+      } else if (bannerBg.indexOf('.') > -1) {
+        // 大图
+        return `background: url(${this.$withBase(
+          bannerBg
+        )}) center center / cover no-repeat`;
       }
-
     },
-    homeData () {
+    homeData() {
       return {
-        ...this.$page.frontmatter
-      }
+        ...this.$page.frontmatter,
+      };
     },
-    actionLink () {
+    actionLink() {
       return {
         link: this.homeData.actionLink,
-        text: this.homeData.actionText
+        text: this.homeData.actionText,
       };
-    }
+    },
   },
-  components: { NavLink, MainLayout, PostList, UpdateArticle, BloggerBar, CategoriesBar, TagsBar, Pagination },
-  created () {
-    this.total = this.$sortPosts.length
+  components: {
+    NavLink,
+    MainLayout,
+    PostList,
+    UpdateArticle,
+    BloggerBar,
+    CategoriesBar,
+    TagsBar,
+    Pagination,
   },
-  beforeMount () {
-    this.isMQMobile = window.innerWidth < MOBILE_DESKTOP_BREAKPOINT ? true : false; // vupress在打包时不能在beforeCreate(),created()访问浏览器api（如window）
+  created() {
+    this.total = this.$sortPosts.length;
   },
-  mounted () {
+  beforeMount() {
+    this.isMQMobile =
+      window.innerWidth < MOBILE_DESKTOP_BREAKPOINT ? true : false; // vupress在打包时不能在beforeCreate(),created()访问浏览器api（如window）
+  },
+  mounted() {
     if (this.$route.query.p) {
-      this.currentPage = Number(this.$route.query.p)
+      this.currentPage = Number(this.$route.query.p);
     }
 
     if (this.isMQMobile && (!this.$route.query.p || this.$route.query.p == 1)) {
-      this.init()
+      this.init();
     }
 
     window.addEventListener('resize', () => {
-      this.isMQMobile = window.innerWidth < MOBILE_DESKTOP_BREAKPOINT ? true : false;
+      this.isMQMobile =
+        window.innerWidth < MOBILE_DESKTOP_BREAKPOINT ? true : false;
       if (this.isMQMobile && !this.slide && !this.mark) {
-        this.mark++
+        this.mark++;
         setTimeout(() => {
-          this.init()
-        }, 60)
+          this.init();
+        }, 60);
       }
-    })
-
+    });
   },
-  beforeDestroy () {
-    clearTimeout(this.playTimer)
-    this.slide && this.slide.destroy()
+  beforeDestroy() {
+    clearTimeout(this.playTimer);
+    this.slide && this.slide.destroy();
   },
   watch: {
-    '$route.query.p' () {
+    '$route.query.p'() {
       if (!this.$route.query.p) {
-        this.currentPage = 1
+        this.currentPage = 1;
       } else {
-        this.currentPage = Number(this.$route.query.p)
+        this.currentPage = Number(this.$route.query.p);
       }
 
       if (this.currentPage === 1 && this.isMQMobile) {
         setTimeout(() => {
-          this.slide && this.slide.destroy()
-          this.init()
-        }, 0)
+          this.slide && this.slide.destroy();
+          this.init();
+        }, 0);
       }
-    }
+    },
   },
   methods: {
-    init () {
-      clearTimeout(this.playTimer)
+    init() {
+      clearTimeout(this.playTimer);
       this.slide = new BScroll(this.$refs.slide, {
         scrollX: true, // x轴滚动
         scrollY: false, // y轴滚动
         slide: {
           loop: true,
-          threshold: 100
+          threshold: 100,
         },
         useTransition: true, // 使用css3 transition动画
         momentum: false,
         bounce: false, // 回弹
         stopPropagation: false, // 是否阻止事件冒泡
         probeType: 2,
-        preventDefault: false
-      })
+        preventDefault: false,
+      });
 
       // user touches the slide area
       this.slide.on('beforeScrollStart', () => {
-        clearTimeout(this.playTimer)
-      })
+        clearTimeout(this.playTimer);
+      });
       // user touched the slide done
       this.slide.on('scrollEnd', () => {
-        this.autoGoNext()
-      })
+        this.autoGoNext();
+      });
       this.slide.on('slideWillChange', (page) => {
-        this.currentPageIndex = page.pageX
-      })
-      this.autoGoNext()
+        this.currentPageIndex = page.pageX;
+      });
+      this.autoGoNext();
     },
-    autoGoNext () {
-      clearTimeout(this.playTimer)
+    autoGoNext() {
+      clearTimeout(this.playTimer);
       this.playTimer = setTimeout(() => {
-        this.slide.next()
-      }, 4000)
+        this.slide.next();
+      }, 4000);
     },
-    handlePagination (i) { // 分页
-      this.currentPage = i
+    handlePagination(i) {
+      // 分页
+      this.currentPage = i;
     },
-    getScrollTop () {
-      return window.pageYOffset
-        || document.documentElement.scrollTop
-        || document.body.scrollTop
+    getScrollTop() {
+      return (
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop
+      );
     },
   },
-
 };
 </script>
 
@@ -344,7 +378,7 @@ export default {
   .banner
     width 100%
     min-height 450px
-    margin-top $navbarHeight
+    padding-top $navbarHeight
     color $bannerTextColor
     position relative
     overflow hidden
@@ -357,6 +391,7 @@ export default {
       .hero
         text-align center
         margin-top 3rem
+        text-shadow 0.125em 0.125em 0.375em black
         img
           max-width 100%
           max-height 240px
@@ -369,7 +404,9 @@ export default {
           margin 1.5rem auto
         .description
           max-width 40rem
-          font-size 1.1rem
+          font-size 2.25rem
+          font-family 'League Spartan'
+          font-weight 500
           line-height 1.3
           opacity 0.9
         .action-button
@@ -463,6 +500,20 @@ export default {
           opacity 0.9
           &.active
             opacity 0.5
+    .copyright
+      font-size .9em
+      font-weight 300
+      position absolute
+      bottom 0
+      right 0
+      padding .5em
+      text-align right
+      opacity .5
+      a
+        font-weight inherit
+        color inherit
+      a:hover
+        font-weight 400
   // 分页不在第一页时，隐藏banner栏
   .banner.hide-banner
     display none
@@ -473,16 +524,20 @@ export default {
     .main-left
       .card-box
         margin-bottom 0.9rem
+      .post-list
+        margin-bottom 2rem
       .pagination
-        margin-bottom 4rem
+        margin-bottom 2rem
       .theme-vdoing-content
-        padding 0 2rem
-        overflow hidden
-        &>:first-child
-          padding-top 2rem
-        &>:last-child
-          padding-bottom 2rem
+        display none
+        // padding 0 2rem
+        // overflow hidden
+        // &>:first-child
+        //   padding-top 2rem
+        // &>:last-child
+        //   padding-bottom 2rem
     .main-right
+      margin-bottom 2rem
       .custom-html-box
         padding 0
         overflow hidden
@@ -500,7 +555,7 @@ export default {
           h1
             font-size 2.5rem
           .description
-            font-size 1rem
+            font-size 1.75rem
         .feature
           a
             h2
@@ -508,6 +563,8 @@ export default {
             .feature-img
               width 9rem
               height 9rem
+      .copyright
+        font-size .85em
 // 719px以下
 @media (max-width $MQMobile)
   .home-wrapper
@@ -515,6 +572,8 @@ export default {
       .banner-content
         .features
           display none !important
+      .copyright
+        font-size .8em
 // 419px以下
 @media (max-width $MQMobileNarrow)
   .home-wrapper

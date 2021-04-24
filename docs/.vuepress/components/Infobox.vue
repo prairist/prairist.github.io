@@ -9,6 +9,19 @@
   </table>
 </template>
 
+<script>
+export default {
+  mounted() {
+    Han(this.$el).render();
+    this.$el.querySelectorAll('a > h-hws:last-child').forEach((e) => {
+      if (e.nextSibling.wholeText === undefined) {
+        e.parentNode.removeChild(e);
+      }
+    });
+  },
+};
+</script>
+
 <style lang="stylus">
 .infobox
   font-size: 87.5%

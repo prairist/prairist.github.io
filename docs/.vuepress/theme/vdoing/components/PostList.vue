@@ -188,7 +188,7 @@ export default {
         border none
         a
           @media (max-width $MQMobile)
-            font-weight 400
+            font-weight 500
       .article-info
         > a, > span
           opacity 0.7
@@ -203,7 +203,7 @@ export default {
               &::before
                 content '/'
         .tags a:not(:first-child)::before
-          content '、'
+          content '\2002'
     .excerpt-wrapper
       border-top 1px solid var(--borderColor)
       margin 0.5rem 0

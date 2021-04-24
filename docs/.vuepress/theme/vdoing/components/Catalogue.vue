@@ -110,11 +110,11 @@ dl, dd
 .column-wrapper
   margin-top 1rem
   display flex
-  padding-bottom 2rem
+  padding-bottom 1rem
   border-bottom 1px solid var(--borderColor)
   img
-    width 80px
-    height 80px
+    width 64px
+    height 64px
     border-radius 2px
     margin-right 1rem
   .column-info

@@ -51,9 +51,8 @@ module.exports = [
   [
     '@vuepress/medium-zoom',
     {
-      selector: '.theme-vdoing-content :not(a) > img',
+      selector: '.custom-block.img img',
       options: {
-        margin: 16,
         background: 'var(--bodyBg)',
       },
     },
