@@ -149,7 +149,6 @@ export default {
 <style lang='stylus'>
 .pagination
   position relative
-  height 60px
   text-align center
   span
     line-height 1rem

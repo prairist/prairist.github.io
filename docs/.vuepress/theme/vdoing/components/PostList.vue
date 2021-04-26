@@ -224,5 +224,5 @@ export default {
         &::before
           float right
           font-size 0.8rem
-          margin 0.1rem 0 0 0.2rem
+          margin 0 0 0 0.2rem
 </style>

@@ -17,9 +17,8 @@
       >
     </div>
 
-    <div class="last-updated" v-if="lastUpdated">
-      <span class="prefix">{{ lastUpdatedText }}</span
-      ><span class="time">{{ lastUpdated }}</span>
+    <div class="last-updated iconfont icon-history" v-if="lastUpdated">
+      <span class="time">{{ lastUpdated }}</span>
     </div>
   </div>
 </template>
@@ -36,16 +35,6 @@ export default {
 
     lastUpdated() {
       return this.$page.lastUpdated;
-    },
-
-    lastUpdatedText() {
-      if (typeof this.$themeLocaleConfig.lastUpdated === 'string') {
-        return this.$themeLocaleConfig.lastUpdated;
-      }
-      if (typeof this.$site.themeConfig.lastUpdated === 'string') {
-        return this.$site.themeConfig.lastUpdated;
-      }
-      return 'Last Updated';
     },
 
     editLink() {
@@ -150,11 +139,12 @@ export default {
   .last-updated
     float right
     font-size 0.9em
-    .prefix
-      font-weight 500
+    &::before
+      padding-right .5em
       color var(--textColor)
       opacity 0.8
     .time
+      font-size inherit
       font-weight 400
       color #aaa
 @media (max-width $MQMobile)

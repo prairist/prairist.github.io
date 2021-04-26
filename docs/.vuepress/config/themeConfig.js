@@ -7,7 +7,6 @@ module.exports = {
   logo: '/assets/img/logo.png',
   repo: 'prairist/prairist.github.io',
   searchMaxSuggestions: 10,
-  lastUpdated: '更新于',
   docsDir: 'docs',
   editLinks: true,
   editLinkText: '编辑',
@@ -46,7 +45,7 @@ module.exports = {
   //   link: 'https://github.com/xugaoyi',
   // },
   social: {
-    iconfontCssFile: '///at.alicdn.com/t/font_2493081_nw2ah3ywduc.css',
+    iconfontCssFile: '//at.alicdn.com/t/font_2493081_3q9hccmznzt.css',
     icons: [
       {
         iconClass: 'icon-wechat',

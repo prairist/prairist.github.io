@@ -525,9 +525,9 @@ export default {
       .card-box
         margin-bottom 0.9rem
       .post-list
-        margin-bottom 2rem
+        margin-bottom 1rem
       .pagination
-        margin-bottom 2rem
+        margin-bottom 1rem
       .theme-vdoing-content
         display none
         // padding 0 2rem
@@ -574,6 +574,10 @@ export default {
           display none !important
       .copyright
         font-size .8em
+    .main-wrapper
+      .main-right
+        .tags-wrapper
+          margin-top 2rem
 // 419px以下
 @media (max-width $MQMobileNarrow)
   .home-wrapper
