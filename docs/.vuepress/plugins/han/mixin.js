@@ -1,5 +1,5 @@
 export default {
-  beforeMount() {
+  mounted() {
     /*!
      * 漢字標準格式 v3.3.0 | MIT License | css.hanzi.co
      * Han.css: the CSS typography framework optimised for Hanzi
@@ -3196,8 +3196,7 @@ export default {
 
       return Han;
     });
-  },
-  mounted() {
+
     var o = new MutationObserver(() => {
       o.disconnect();
       try {
