@@ -1,5 +1,5 @@
 export default {
-  mounted() {
+  beforeMount() {
     /*!
      * 漢字標準格式 v3.3.0 | MIT License | css.hanzi.co
      * Han.css: the CSS typography framework optimised for Hanzi
@@ -2665,7 +2665,10 @@ export default {
             $elmt = $elmt.parentNode;
           }
           if ($node !== $elmt) {
-            $elmt.insertAdjacentHTML('afterEnd', '<h-hws hidden>&emsp14;</h-hws>');
+            $elmt.insertAdjacentHTML(
+              'afterEnd',
+              '<h-hws hidden>&emsp14;</h-hws>'
+            );
           }
         }
         return text;
@@ -3193,7 +3196,8 @@ export default {
 
       return Han;
     });
-
+  },
+  mounted() {
     var o = new MutationObserver(() => {
       o.disconnect();
       try {
