@@ -2642,7 +2642,7 @@ export default {
 
       var $hws = $.create('h-hws');
       $hws.setAttribute('hidden', '');
-      $hws.innerHTML = ' ';
+      $hws.innerHTML = '&emsp14;';
 
       function sharingSameParent($a, $b) {
         return $a && $b && $a.parentNode === $b.parentNode;
@@ -2665,7 +2665,7 @@ export default {
             $elmt = $elmt.parentNode;
           }
           if ($node !== $elmt) {
-            $elmt.insertAdjacentHTML('afterEnd', '<h-hws hidden> </h-hws>');
+            $elmt.insertAdjacentHTML('afterEnd', '<h-hws hidden>&emsp14;</h-hws>');
           }
         }
         return text;
