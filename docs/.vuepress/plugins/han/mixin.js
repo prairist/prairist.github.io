@@ -1,5 +1,5 @@
 export default {
-  mounted() {
+  beforeMount() {
     /*!
      * 漢字標準格式 v3.3.0 | MIT License | css.hanzi.co
      * Han.css: the CSS typography framework optimised for Hanzi
@@ -3197,28 +3197,31 @@ export default {
       return Han;
     });
 
+    window.renderHan = () => {
+      Han(document.body.querySelector('.theme-container')).render();
+      document.body.querySelectorAll('a > h-hws:last-child').forEach((e) => {
+        if (e.nextSibling.wholeText === undefined) {
+          e.parentNode.removeChild(e);
+        }
+      });
+    };
+
     var o = new MutationObserver(() => {
       o.disconnect();
       try {
-        var r = document.body.querySelector('.theme-container');
-        if (r.childElementCount > 0) {
-          Han(r).render();
-          document.body
-            .querySelectorAll('a > h-hws:last-child')
-            .forEach((e) => {
-              if (e.nextSibling.wholeText === undefined) {
-                e.parentNode.removeChild(e);
-              }
-            });
+        if (document.body.querySelector('.theme-container').childElementCount > 0) {
+          renderHan();
+        } else {
+          throw 0;
         }
       } catch {
         o.observe(document.body, { childList: true, subtree: true });
       }
     });
     o.observe(document.body, { childList: true, subtree: true });
+  },
 
-    this.$router.afterEach(() => {
-      o.observe(document.body, { childList: true, subtree: true });
-    });
+  updated() {
+    renderHan();
   },
 };
